@@ -1,0 +1,21 @@
+{
+  "name": "@vayo/logger",
+  "version": "1.0.3",
+  "description": "Vayo's logger for Node.js apps with Sentry support",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "exit 0"
+  },
+  "author": "Vayo team",
+  "license": "MIT",
+  "dependencies": {
+    "@sentry/node": "^4.0.6",
+    "bunyan": "^1.8.12",
+    "bunyan-prettystream": "^0.1.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0"
+  }
+}
