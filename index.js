@@ -29,12 +29,12 @@ const createLogger = (options) => {
     if (options.useBunyanPrettyStream) {
         const prettyStdOut = new PrettyStream();
         prettyStdOut.pipe(process.stdout);
-        config.streams.push({ type: 'raw', level: loggerLevel, stream: prettyStdOut });
+        config.streams.push({type: 'raw', level: loggerLevel, stream: prettyStdOut});
     } else if (options.useSensitiveDataStream) {
-            config.streams.push({
-        level: loggerLevel,
-        stream: new SensitiveDataStream(options.sensitiveDataPattern)
-    });
+        config.streams.push({
+            level: loggerLevel,
+            stream: new SensitiveDataStream(options.sensitiveDataPattern)
+        });
     } else {
         config.streams.push({level: loggerLevel, stream: process.stdout});
     }
@@ -45,7 +45,11 @@ const createLogger = (options) => {
             environment: options.environment
         });
         const sentryStream = new SentryStream(Sentry);
-        config.streams.push(sentryStream);
+        config.streams.push({
+            type: 'raw',
+            level: loggerLevel || 'warn',
+            stream: sentryStream
+        });
     }
 
     return bunyan.createLogger(config)
