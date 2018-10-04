@@ -47,7 +47,7 @@ const createLogger = (options) => {
         const sentryStream = new SentryStream(Sentry);
         config.streams.push({
             type: 'raw',
-            level: loggerLevel || 'warn',
+            level: 'warn',
             stream: sentryStream
         });
     }

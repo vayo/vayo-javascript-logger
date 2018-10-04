@@ -1,6 +1,6 @@
 {
   "name": "@vayo/logger",
-  "version": "1.0.5",
+  "version": "1.0.9",
   "description": "Vayo's logger for Node.js apps with Sentry support",
   "main": "index.js",
   "scripts": {

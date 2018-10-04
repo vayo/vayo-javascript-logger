@@ -25,11 +25,15 @@ class SentryStream {
         const level = this.getSentryLevel(record);
 
         if (err) {
-            const extra = omit(record, 'err', 'tags');
-            this.Sentry.captureException(this.deserializeError(err), { extra, level, tags });
+            this.Sentry.captureException(this.deserializeError(err));
         } else {
             const extra = omit(record, 'msg', 'tags');
-            this.Sentry.captureMessage(record.msg, { extra, level, tags });
+            this.Sentry.captureEvent({
+                message: record.msg,
+                tags: tags || {},
+                extra: extra || {},
+                level,
+            });
         }
         return (true);
     }
@@ -50,12 +54,14 @@ class SentryStream {
     }
 
     /**
-     * Error deserialiazing function. Bunyan serialize the error to object : https://github.com/trentm/node-bunyan/blob/master/lib/bunyan.js#L1089
+     * Error deserializing function. Bunyan serialize the error to object : https://github.com/trentm/node-bunyan/blob/master/lib/bunyan.js#L1089
      * @param  {object} data serialized Bunyan
      * @return {Error}      the deserialiazed error
      */
     deserializeError(data) {
-        if (data instanceof Error) return data;
+        if (data instanceof Error) {
+            return data;
+        }
 
         const error = new Error(data.message);
         error.name = data.name;
