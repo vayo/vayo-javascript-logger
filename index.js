@@ -8,7 +8,7 @@ const SensitiveDataStream = require('./sensitive-stream');
 
 const serializeRequest = (req) => {
     return pick(req, [
-        'params', 'query', 'originalUrl', 'method', 'headers'
+        'params', 'query', 'url', 'originalUrl', 'method', 'headers'
     ]);
 
 };
